@@ -1,5 +1,8 @@
+import { Button } from "@/components/common/button";
+import { useDesignLayout } from "@/hooks/use-layout";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ProjectCard = ({
   slug,
@@ -9,6 +12,14 @@ const ProjectCard = ({
   description,
   lastUpdate,
 }: TProject) => {
+  const { setLayout } = useDesignLayout();
+  const { push } = useRouter();
+
+  const onEditProject = () => {
+    setLayout([]);
+    void push(`/projects/${slug}`);
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden">
       <Link href={`/projects/${slug}`}>
@@ -30,17 +41,17 @@ const ProjectCard = ({
             {createdAt.toDateString()}
           </span>
           <span className="text-xs text-gray-700">
-            <span className="text-indigo-500">Last update:</span>:{" "}
+            <span className="text-indigo-500">Last update:</span>{" "}
             {lastUpdate.toDateString()}
           </span>
         </div>
 
-        <Link
-          href={`/projects/${slug}`}
-          className="block bg-indigo-500 mt-4 p-2 rounded-lg text-center text-white hover:opacity-85 duration-200"
+        <Button
+          className="w-full bg-indigo-500 mt-4 p-2 rounded-lg text-center text-white hover:opacity-85 duration-200"
+          onClick={onEditProject}
         >
           Edit Project
-        </Link>
+        </Button>
       </div>
     </div>
   );

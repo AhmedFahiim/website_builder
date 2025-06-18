@@ -1,11 +1,15 @@
 import { useDesignLayout } from "@/hooks/use-layout";
+import { useUserProjects } from "@/hooks/use-user-projects";
+import { useParams } from "next/navigation";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
 export const useSelectSection = (
   designAreaRef: React.RefObject<HTMLDivElement | null>
 ) => {
+  const params = useParams();
   const { layout, setLayout } = useDesignLayout();
+  const { projects, setProjects } = useUserProjects();
 
   const onSelectSection = useCallback(
     (section: TSection) => {
@@ -22,6 +26,8 @@ export const useSelectSection = (
           ? 99
           : 2;
 
+      const sectionWithOrder = { ...section, order };
+
       setLayout((prev) => {
         const isTypeExistBefore = prev.some(
           (prevSection) => prevSection.type === droppedSectionType
@@ -30,21 +36,51 @@ export const useSelectSection = (
         if (isOneTimeSection && isTypeExistBefore) {
           const replaceSection = prev.map((prevSection) =>
             prevSection.type === droppedSectionType
-              ? { ...section, order }
+              ? sectionWithOrder
               : prevSection
           );
 
           return replaceSection;
         }
 
-        return [...prev, { ...section, order }].sort(
+        return [...prev, sectionWithOrder].sort(
           (a, b) => (a?.order ?? 0) - (b?.order ?? 0)
         );
       });
 
+      // Update projects
+      const updatedProjects = projects.map((project: TProject) =>
+        project.slug === params.id
+          ? {
+              ...project,
+              lastUpdate: new Date(),
+              sections: (() => {
+                const existingSections = project.sections || [];
+                const isTypeExistInProject = existingSections.some(
+                  (projectSection) => projectSection.type === droppedSectionType
+                );
+
+                if (isOneTimeSection && isTypeExistInProject) {
+                  return existingSections.map((projectSection) =>
+                    projectSection.type === droppedSectionType
+                      ? sectionWithOrder
+                      : projectSection
+                  );
+                } else {
+                  return [...existingSections, sectionWithOrder].sort(
+                    (a, b) => (a?.order ?? 0) - (b?.order ?? 0)
+                  );
+                }
+              })(),
+            }
+          : project
+      );
+
+      setProjects(updatedProjects);
+
       toast.success("The section added to the workflow");
     },
-    [setLayout]
+    [setLayout, projects, params.id, setProjects]
   );
 
   const onSelectWithFly = (

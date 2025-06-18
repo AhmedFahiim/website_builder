@@ -124,11 +124,7 @@ export const preMadeSections: Array<{
             type: "file",
             content: "https://www.floatui.com/logo.svg",
           },
-          title: {
-            name: "title",
-            type: "text",
-            content: "Optimize your website for Search engine",
-          },
+
           description: {
             name: "description",
             type: "text",

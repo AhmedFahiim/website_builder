@@ -73,8 +73,8 @@ export default function EditSectionModal({
       isOpen
       onOpenChange={onCloseModal}
       contentClassName="lg:!max-w-[60%] mx-auto"
+      title={`Edit Section: ${editControl?.name}`}
     >
-      <h2>Edit Section: {editControl?.name}</h2>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onUpdateSectionData)}>
           <div className="grid grid-cols-12 gap-6 my-6">

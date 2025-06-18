@@ -22,7 +22,7 @@ export default function PreMadeSection({
               {sectionType.sections.map((section) => (
                 <button
                   key={section.componentKey}
-                  className="flex flex-col gap-2 items-center cursor-grab md:basis-1/2"
+                  className="flex flex-col gap-2 items-center cursor-pointer md:basis-1/2 hover:scale-95 duration-200"
                   onClick={(e) => onSelectWithFly(section, e)}
                 >
                   <Image
