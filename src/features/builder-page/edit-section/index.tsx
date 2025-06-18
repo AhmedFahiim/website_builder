@@ -72,7 +72,7 @@ export default function EditSectionModal({
     <Modal
       isOpen
       onOpenChange={onCloseModal}
-      contentClassName="lg:!max-w-[60%] mx-auto"
+      contentClassName="lg:!max-w-[60%] !max-w-[80%] mx-auto"
       title={`Edit Section: ${editControl?.name}`}
     >
       <FormProvider {...form}>

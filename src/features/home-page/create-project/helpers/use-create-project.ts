@@ -1,5 +1,5 @@
 import { useUserProjects } from "@/hooks/use-user-projects";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 
 export const useCreateProject = () => {
@@ -27,10 +27,25 @@ export const useCreateProject = () => {
 
       setProjects([...projects, newProject]);
 
+      localStorage.setItem(
+        "website_builder_projects",
+        JSON.stringify([...projects, newProject])
+      );
+
       setOpenCreateModal(false);
     },
     [projects, setProjects]
   );
+
+  useEffect(() => {
+    const savedProjectData = localStorage.getItem("website_builder_projects");
+
+    if (savedProjectData) {
+      const parsedData = JSON.parse(savedProjectData);
+
+      setProjects(parsedData);
+    }
+  }, []);
 
   return {
     form,

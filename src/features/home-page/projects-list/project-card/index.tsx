@@ -38,11 +38,11 @@ const ProjectCard = ({
         <div className="flex items-center justify-between my-2">
           <span className="text-xs text-gray-700">
             <span className="text-indigo-500">Created at:</span>{" "}
-            {createdAt.toDateString()}
+            {new Date(createdAt)?.toDateString()}
           </span>
           <span className="text-xs text-gray-700">
             <span className="text-indigo-500">Last update:</span>{" "}
-            {lastUpdate.toDateString()}
+            {new Date(lastUpdate)?.toDateString()}
           </span>
         </div>
 

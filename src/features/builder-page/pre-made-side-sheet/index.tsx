@@ -14,7 +14,7 @@ export default function PreMadeSectionsSideSheet({
   return (
     <aside
       className={cn(
-        "h-full lg:w-0 overflow-hidden p-4 border border-gray-200 duration-300 -translate-x-10",
+        "h-full lg:w-0 overflow-hidden p-4 border border-gray-200 duration-300 -translate-x-full absolute z-[99] lg:z-[1] lg:relative",
         {
           "lg:w-[350px] bg-gray-50 translate-x-0": isOpen,
         }

@@ -43,12 +43,18 @@ const BuilderHeader = React.memo(function BuilderHeader({
     );
 
     setProjects(updatedProjects);
+
+    localStorage.setItem(
+      "website_builder_projects",
+      JSON.stringify(updatedProjects)
+    );
+
     toast.success("Your design saved successfully");
   };
 
   return (
     <header
-      className="flex justify-between items-center p-4"
+      className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-0 p-4"
       style={{
         background:
           "linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)",
@@ -82,7 +88,7 @@ const BuilderHeader = React.memo(function BuilderHeader({
         </Link>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-4">
         <Button variant="outline" onClick={() => inputRef.current?.click()}>
           Import Design
         </Button>

@@ -16,8 +16,6 @@ export default function FormInput({
 }) {
   const { register, watch } = useFormContext();
 
-  console.log(watch());
-
   const value = watch(name as string);
   return (
     <div className={cn("space-y-3", wrapperClassName)}>

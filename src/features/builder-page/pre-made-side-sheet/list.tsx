@@ -18,7 +18,7 @@ export default function PreMadeSection({
             <h2 className="text-indigo-500 font-semibold mb-2">
               {sectionType.blockName}
             </h2>
-            <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex gap-4">
               {sectionType.sections.map((section) => (
                 <button
                   key={section.componentKey}

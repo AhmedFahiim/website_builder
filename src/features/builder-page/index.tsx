@@ -13,7 +13,7 @@ import { useDesignLayout } from "@/hooks/use-layout";
 export default function BuildProject() {
   const params = useParams();
 
-  const { projects } = useUserProjects();
+  const { projects, setProjects } = useUserProjects();
 
   const { setLayout } = useDesignLayout();
 
@@ -30,6 +30,17 @@ export default function BuildProject() {
     setLayout(activeProject?.sections || []);
   }, [params, projects]);
 
+  // get saved projects
+  useEffect(() => {
+    const savedProjectData = localStorage.getItem("website_builder_projects");
+
+    if (savedProjectData) {
+      const parsedData = JSON.parse(savedProjectData);
+
+      setProjects(parsedData);
+    }
+  }, []);
+
   return (
     <section>
       <BuilderHeader
@@ -37,7 +48,7 @@ export default function BuildProject() {
         setOpenSideSheet={setOpenSideSheet}
       />
       <DndProvider backend={HTML5Backend}>
-        <div className="flex items-center h-[calc(100vh-72px)]">
+        <div className="relative flex items-center h-[calc(100vh-72px)]">
           <PreMadeSectionsSideSheet
             isOpen={openSideSheet}
             designAreaRef={designAreaRef}
