@@ -11,22 +11,13 @@ import { useDesignLayout } from "@/hooks/use-layout";
 export default function BuildProject() {
   const params = useParams();
 
-  const { projects, setProjects } = useUserProjects();
+  const { setProjects } = useUserProjects();
 
   const { setLayout } = useDesignLayout();
 
   const [openSideSheet, setOpenSideSheet] = useState<boolean>(true);
 
   const designAreaRef = useRef<HTMLDivElement>(null);
-
-  // get the project last design
-  useEffect(() => {
-    const activeProject = projects.find(
-      (project) => project.slug === params?.id
-    );
-
-    setLayout(activeProject?.sections || []);
-  }, [params]);
 
   // get saved projects
   useEffect(() => {
@@ -36,6 +27,12 @@ export default function BuildProject() {
       const parsedData = JSON.parse(savedProjectData);
 
       setProjects(parsedData);
+
+      const activeProject = parsedData?.find(
+        (project: TProject) => project.slug === params?.id
+      );
+
+      setLayout(activeProject?.sections || []);
     }
   }, []);
 
