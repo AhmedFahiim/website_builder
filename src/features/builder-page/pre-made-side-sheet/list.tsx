@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { preMadeSections } from "@/components/pre-made/pre-made-sections-data";
-import { useSelectSection } from "./helpers/use-select-section";
+import { useSelectSection } from "../helpers/use-select-section";
 
 export default function PreMadeSection({
   designAreaRef,

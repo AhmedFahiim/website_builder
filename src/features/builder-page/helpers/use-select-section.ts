@@ -1,5 +1,6 @@
 import { useDesignLayout } from "@/hooks/use-layout";
 import { useCallback } from "react";
+import { toast } from "sonner";
 
 export const useSelectSection = (
   designAreaRef: React.RefObject<HTMLDivElement | null>
@@ -40,6 +41,8 @@ export const useSelectSection = (
           (a, b) => (a?.order ?? 0) - (b?.order ?? 0)
         );
       });
+
+      toast.success("The section added to the workflow");
     },
     [setLayout]
   );

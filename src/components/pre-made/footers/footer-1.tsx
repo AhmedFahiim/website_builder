@@ -2,25 +2,14 @@ import Link from "@/components/common/link";
 import Image from "next/image";
 import React from "react";
 
-export default function Footer2() {
-  const footerNavs = [
-    {
-      href: "#",
-      name: "Terms",
-    },
-    {
-      href: "#",
-      name: "License",
-    },
-    {
-      href: "#",
-      name: "Privacy",
-    },
-    {
-      href: "#",
-      name: "About us",
-    },
-  ];
+interface Props {
+  nav: TNav;
+  logo: string;
+  description: string;
+  cta: string;
+}
+
+export default function Footer1({ nav, cta, logo, description }: Props) {
   return (
     <footer className="pt-10">
       <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -28,16 +17,13 @@ export default function Footer2() {
           <Image
             width={1200}
             height={1200}
-            src="https://www.floatui.com/logo.svg"
+            src={logo}
             className="w-32 sm:mx-auto"
             alt="logo image"
           />
-          <p>
-            Nulla auctor metus vitae lectus iaculis, vel euismod massa
-            efficitur.
-          </p>
+          <p>{description}</p>
           <Link href="#" className="max-w-fit mx-auto">
-            Get access
+            {cta}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -55,7 +41,7 @@ export default function Footer2() {
         <div className="mt-10 py-10 border-t items-center justify-between sm:flex">
           <p>© 2025 Float UI Inc. All rights reserved.</p>
           <ul className="flex flex-wrap items-center gap-4 mt-6 sm:text-sm sm:mt-0">
-            {footerNavs.map((item, idx) => (
+            {nav.map((item, idx) => (
               <li
                 key={idx}
                 className="text-gray-800 hover:text-gray-500 duration-150"

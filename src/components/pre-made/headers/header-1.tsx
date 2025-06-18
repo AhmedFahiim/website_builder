@@ -2,14 +2,19 @@ import React from "react";
 import { MagnifyingGlassIcon, GlobeIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 
-const Header1 = () => {
+interface Props {
+  logo: string;
+  cta: string;
+}
+
+const Header1 = ({ logo, cta }: Props) => {
   return (
     <nav className="flex justify-between items-center px-10 py-5 bg-white shadow-sm">
       <div className="flex items-center">
         <Image
           width={1200}
           height={1200}
-          src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg"
+          src={logo}
           alt="Logo"
           className="h-8 w-fit"
         />
@@ -29,7 +34,7 @@ const Header1 = () => {
 
       {/* Right Section */}
       <div className="flex items-center gap-4">
-        <span className="text-sm cursor-pointer">Become a Host</span>
+        <span className="text-sm cursor-pointer">{cta}</span>
         <GlobeIcon className="w-5 h-5 cursor-pointer" />
       </div>
     </nav>

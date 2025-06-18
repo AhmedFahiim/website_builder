@@ -12,6 +12,12 @@ type TSectionType =
   | "team"
   | "testimonials";
 
+type TContentDataItem = {
+  name: string;
+  type: "text" | "file" | "array";
+  content: string | TLinks | Array<{ icon: React.ReactNode; href: string }>;
+};
+
 interface TSection {
   name: string;
   type: TSectionType;
@@ -19,12 +25,15 @@ interface TSection {
   previewImage: string;
   order?: number;
   contentData: {
-    title?: string;
-    logo?: string;
-    description?: string;
-    extraDescription?: string;
-    background?: string;
-    cta?: string;
+    title?: TContentDataItem;
+    titleSpecialText?: TContentDataItem;
+    logo?: TContentDataItem;
+    nav?: TContentDataItem;
+    socialLinks?: TContentDataItem;
+    description?: TContentDataItem;
+    extraDescription?: TContentDataItem;
+    image?: TContentDataItem;
+    cta?: TContentDataItem;
   };
 }
 
@@ -38,3 +47,5 @@ interface TProject {
   createdAt: Date;
   sections?: Array<TSection>;
 }
+
+type TLinks = Array<{ name: string; icon?: string; href: string }>;

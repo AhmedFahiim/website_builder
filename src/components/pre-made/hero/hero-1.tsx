@@ -2,21 +2,24 @@ import { Button } from "@/components/common/button";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 
-export default function Hero1() {
+interface Props {
+  title: string;
+  description: string;
+  cta: string;
+}
+
+export default function Hero1({ cta, description, title }: Props) {
   return (
     <section className="relative">
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 py-28 md:px-8">
         <div className="space-y-5 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl text-gray-800 font-extrabold mx-auto md:text-5xl">
-            Build and scale up your startup with the best tools
+            {title}
           </h2>
-          <p className="max-w-2xl mx-auto text-gray-400">
-            Sed ut perspiciatis unde omnis iste natus voluptatem accusantium
-            doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          </p>
+          <p className="max-w-2xl mx-auto text-gray-400">{description}</p>
 
           <Button className="mx-auto" endIcon={<ArrowRight />}>
-            Get Started
+            {cta}
           </Button>
         </div>
       </div>

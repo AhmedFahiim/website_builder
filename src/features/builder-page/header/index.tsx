@@ -48,7 +48,7 @@ const BuilderHeader = React.memo(function BuilderHeader({
       </div>
 
       <div className="flex items-center gap-4">
-        <Button variant="outline">Live Preview</Button>
+        <Button variant="outline">Import Design</Button>
         <Button variant="default">Save Design</Button>
       </div>
     </header>

@@ -11,8 +11,13 @@ export const preMadeSections: Array<{
         componentKey: "header_one",
         previewImage: "/images/header/header_1.png",
         contentData: {
-          logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg",
-          cta: "Become a Host",
+          logo: {
+            name: "logo",
+            type: "file",
+            content:
+              "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg",
+          },
+          cta: { name: "cta", type: "text", content: "Become a Host" },
         },
       },
       {
@@ -21,8 +26,31 @@ export const preMadeSections: Array<{
         componentKey: "header_two",
         previewImage: "/images/header/header_2.png",
         contentData: {
-          logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg",
-          cta: "Contact Sales",
+          logo: {
+            name: "logo",
+            type: "file",
+            content:
+              "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg",
+          },
+          cta: { name: "cta", type: "text", content: "Contact Sales" },
+          nav: {
+            name: "nav",
+            type: "array",
+            content: [
+              {
+                href: "#",
+                name: "products",
+              },
+              {
+                href: "#",
+                name: "solutions",
+              },
+              {
+                href: "#",
+                name: "resources",
+              },
+            ],
+          },
         },
       },
     ],
@@ -36,10 +64,18 @@ export const preMadeSections: Array<{
         componentKey: "hero_one",
         previewImage: "/images/hero/hero_1.png",
         contentData: {
-          title: "Optimize your website for Search engine",
-          description:
-            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
-          cta: "Get Started",
+          title: {
+            name: "title",
+            type: "text",
+            content: "Optimize your website for Search engine",
+          },
+          description: {
+            name: "description",
+            type: "text",
+            content:
+              "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
+          },
+          cta: { name: "cta", type: "text", content: "Get Started" },
         },
       },
       {
@@ -48,12 +84,28 @@ export const preMadeSections: Array<{
         componentKey: "hero_two",
         previewImage: "/images/hero/hero_2.png",
         contentData: {
-          title: "Optimize your website for Search engine",
-          description:
-            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
-          extraDescription:
-            "Subscribe to our newsletter and we'll save your time",
-          cta: "Subscribe",
+          title: {
+            name: "title",
+            type: "text",
+            content: "Optimize your website for",
+          },
+          titleSpecialText: {
+            name: "titleSpecialText",
+            type: "text",
+            content: "Search engine",
+          },
+          description: {
+            name: "description",
+            type: "text",
+            content:
+              "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
+          },
+          cta: { name: "cta", type: "text", content: "Subscribe" },
+          image: {
+            name: "image",
+            type: "file",
+            content: "https://i.postimg.cc/kgd4WhyS/container.png",
+          },
         },
       },
     ],
@@ -67,11 +119,45 @@ export const preMadeSections: Array<{
         componentKey: "footer_one",
         previewImage: "/images/footer/footer_1.png",
         contentData: {
-          logo: "https://www.floatui.com/logo.svg",
-          title: "Optimize your website for Search engine",
-          description:
-            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
-          cta: "Get Access",
+          logo: {
+            name: "logo",
+            type: "file",
+            content: "https://www.floatui.com/logo.svg",
+          },
+          title: {
+            name: "title",
+            type: "text",
+            content: "Optimize your website for Search engine",
+          },
+          description: {
+            name: "description",
+            type: "text",
+            content:
+              "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum",
+          },
+          cta: { name: "cta", type: "text", content: "Get Access" },
+          nav: {
+            name: "nav",
+            type: "array",
+            content: [
+              {
+                href: "#",
+                name: "Terms",
+              },
+              {
+                href: "#",
+                name: "License",
+              },
+              {
+                href: "#",
+                name: "Privacy",
+              },
+              {
+                href: "#",
+                name: "About us",
+              },
+            ],
+          },
         },
       },
       {
@@ -80,10 +166,29 @@ export const preMadeSections: Array<{
         componentKey: "footer_two",
         previewImage: "/images/footer/footer_2.png",
         contentData: {
-          logo: "https://www.floatui.com/logo.svg",
-          description:
-            "Nulla auctor metus vitae lectus iaculis, vel euismod massa efficitur.",
-          cta: "Get Access",
+          nav: {
+            name: "nav",
+            type: "array",
+            content: [
+              {
+                href: "#",
+                name: "Terms",
+              },
+              {
+                href: "#",
+                name: "License",
+              },
+              {
+                href: "#",
+                name: "Privacy",
+              },
+              {
+                href: "#",
+                name: "About us",
+              },
+            ],
+          },
+          socialLinks: { name: "socialLinks", type: "array", content: [] },
         },
       },
     ],

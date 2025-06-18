@@ -2,14 +2,21 @@ import React from "react";
 import { GlobeIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
+import LinkComponent from "@/components/common/link";
 
-const Header2 = () => (
+interface Props {
+  logo: string;
+  cta: string;
+  nav: TNav;
+}
+
+const Header2 = ({ logo, cta, nav }: Props) => (
   <nav className=" bg-black border-b border-gray-800">
     <div className="max-w-[2520px] mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-16 gap-3 md:gap-0">
         <div className="flex-shrink-0 text-white">
           <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg"
+            src={logo}
             width={1200}
             height={1200}
             className="h-8 w-fit"
@@ -19,24 +26,16 @@ const Header2 = () => (
 
         {/* Center nav */}
         <div className="hidden md:flex md:items-center md:space-x-8">
-          <a
-            href="#"
-            className="text-sm font-medium text-white hover:text-gray-300"
-          >
-            Products
-          </a>
-          <a
-            href="#"
-            className="text-sm font-medium text-gray-300 hover:text-white"
-          >
-            Solutions
-          </a>
-          <a
-            href="#"
-            className="text-sm font-medium text-gray-300 hover:text-white"
-          >
-            Resources
-          </a>
+          {nav?.map((link) => (
+            <LinkComponent
+              variant={"text"}
+              key={link.name}
+              href={link.href}
+              className="text-white capitalize"
+            >
+              {link.name}
+            </LinkComponent>
+          ))}
         </div>
 
         {/* Right section */}
@@ -45,7 +44,7 @@ const Header2 = () => (
             variant="soft"
             className="hidden md:flex text-sm font-medium text-gray-300 hover:text-gray-800 bg-gray-800"
           >
-            Contact Sales
+            {cta}
           </Button>
           <Button
             variant="text"
