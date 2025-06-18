@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 interface Props {
-  nav: TNav;
+  nav: TLinks;
   logo: string;
   description: string;
   cta: string;

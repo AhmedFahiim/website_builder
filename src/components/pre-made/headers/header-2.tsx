@@ -7,7 +7,7 @@ import LinkComponent from "@/components/common/link";
 interface Props {
   logo: string;
   cta: string;
-  nav: TNav;
+  nav: TLinks;
 }
 
 const Header2 = ({ logo, cta, nav }: Props) => (
