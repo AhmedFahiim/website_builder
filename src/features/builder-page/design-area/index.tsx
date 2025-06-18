@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import HeaderOne from "@/components/pre-made/headers/header-1";
 import HeaderTwo from "@/components/pre-made/headers/header-2";
 import HeroOne from "@/components/pre-made/hero/hero-1";
@@ -8,9 +8,23 @@ import FooterTwo from "@/components/pre-made/footers/footer-2";
 import EmptyLayoutMessage from "../empty-layout-message";
 import { cn } from "@/lib/utils";
 import { useLayoutActions } from "../helpers/use-layout-actions";
-import { Edit2, Trash } from "lucide-react";
 import EditSectionModal from "../edit-section";
 import { transformContentData } from "@/utils/format-section-content";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import SortableItem from "@/components/common/sortable-item";
+import SectionActions from "../section-actions";
 
 export default function DesignArea({
   designAreaRef,
@@ -20,6 +34,7 @@ export default function DesignArea({
   const {
     layout,
     editControl,
+    setLayout,
     onEditSection,
     setEditControl,
     onUpdateSectionData,
@@ -35,6 +50,38 @@ export default function DesignArea({
     footer_two: FooterTwo,
   };
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
+
+  const onDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+
+      if (active.id !== over?.id) {
+        const oldIndex = layout.findIndex(
+          (item) => item.componentKey === active.id
+        );
+        const newIndex = over
+          ? layout.findIndex((item) => item.componentKey === over.id)
+          : -1;
+
+        const newItems = arrayMove(layout, oldIndex, newIndex).map(
+          (item, index) => ({
+            ...item,
+            order: index + 1,
+          })
+        );
+        setLayout(newItems);
+      }
+    },
+    [layout]
+  );
+
   return (
     <section
       className={cn(
@@ -43,39 +90,40 @@ export default function DesignArea({
       ref={designAreaRef}
     >
       {layout.length > 0 ? (
-        layout?.map((section: TSection, idx: number) => {
-          const Component = componentMap[section.componentKey];
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={onDragEnd}
+        >
+          <SortableContext
+            items={layout.map((item) => item.componentKey)}
+            strategy={verticalListSortingStrategy}
+          >
+            {layout?.map((section: TSection, idx: number) => {
+              const Component = componentMap[section.componentKey];
 
-          return (
-            <div
-              key={idx}
-              className="relative border border-transparent duration-300 hover:border-gray-200"
-            >
-              {React.createElement(Component, {
-                ...transformContentData(section.contentData),
-              })}
-
-              <div className="flex items-center gap-2 absolute -top-2 -left-2 z-[10]">
-                <button
-                  className="size-6 rounded-full border border-gray-200 text-red-400 hover:bg-red-400 hover:text-white duration-300 cursor-pointer grid place-items-center"
-                  onClick={() =>
-                    designAreaRef.current &&
-                    onDeleteSectionWithFly(section, designAreaRef)
-                  }
+              return (
+                <SortableItem
+                  key={idx}
+                  item={section}
+                  className="relative border border-transparent duration-300 hover:border-gray-200"
                 >
-                  <Trash size={16} />
-                </button>
+                  {React.createElement(Component, {
+                    ...transformContentData(section.contentData),
+                  })}
 
-                <button
-                  className="size-6 rounded-full border border-gray-200 hover:bg-gray-300 duration-300 cursor-pointer grid place-items-center"
-                  onClick={() => onEditSection(section)}
-                >
-                  <Edit2 className="text-indigo-500" size={16} />
-                </button>
-              </div>
-            </div>
-          );
-        })
+                  <SectionActions
+                    onEditSection={() => onEditSection(section)}
+                    onDeleteSectionWithFly={() =>
+                      designAreaRef.current &&
+                      onDeleteSectionWithFly(section, designAreaRef)
+                    }
+                  />
+                </SortableItem>
+              );
+            })}
+          </SortableContext>
+        </DndContext>
       ) : (
         <EmptyLayoutMessage />
       )}

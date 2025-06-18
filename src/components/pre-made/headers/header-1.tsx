@@ -1,6 +1,6 @@
 import React from "react";
-import { MagnifyingGlassIcon, GlobeIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import { GlobeIcon, Search } from "lucide-react";
 
 interface Props {
   logo: string;
@@ -28,7 +28,7 @@ const Header1 = ({ logo, cta }: Props) => {
           className="flex-1 bg-transparent text-sm text-gray-600 placeholder-gray-400 outline-none px-2"
         />
         <button className="bg-pink-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-pink-600">
-          <MagnifyingGlassIcon className="w-4 h-4" />
+          <Search className="w-4 h-4" />
         </button>
       </div>
 

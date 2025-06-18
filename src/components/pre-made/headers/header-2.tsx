@@ -1,8 +1,8 @@
 import React from "react";
-import { GlobeIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import LinkComponent from "@/components/common/link";
+import { GlobeIcon, User } from "lucide-react";
 
 interface Props {
   logo: string;
@@ -71,7 +71,7 @@ const Header2 = ({ logo, cta, nav }: Props) => (
               <line x1="4" y1="12" x2="20" y2="12" />
               <line x1="4" y1="18" x2="20" y2="18" />
             </svg>
-            <PersonIcon className="h-6 w-6 rounded-full bg-gray-700 text-white p-1" />
+            <User className="h-6 w-6 rounded-full bg-gray-700 text-white p-1" />
           </Button>
         </div>
       </div>

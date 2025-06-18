@@ -7,7 +7,7 @@ import { useImportDesign } from "@/hooks/use-import-design";
 import { useDesignLayout } from "@/hooks/use-layout";
 import { useUserProjects } from "@/hooks/use-user-projects";
 import { useParams } from "next/navigation";
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 interface Props {
@@ -31,7 +31,7 @@ const BuilderHeader = React.memo(function BuilderHeader({
 
   const onExportDesign = useExportDesign();
 
-  const onSaveDesign = () => {
+  const onSaveDesign = useCallback(() => {
     const updatedProjects = projects.map((project: TProject) =>
       project.slug === params.id
         ? {
@@ -50,7 +50,16 @@ const BuilderHeader = React.memo(function BuilderHeader({
     );
 
     toast.success("Your design saved successfully");
-  };
+  }, [projects]);
+
+  // auto save design
+  useEffect(() => {
+    if (projects.length > 0) {
+      const autoSaveInterval = setInterval(onSaveDesign, 1000 * 60);
+
+      return () => clearInterval(autoSaveInterval);
+    }
+  }, [projects]);
 
   return (
     <header

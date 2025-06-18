@@ -80,6 +80,7 @@ export const useLayoutActions = () => {
   return {
     layout,
     editControl,
+    setLayout,
     onEditSection,
     setEditControl,
     onUpdateSectionData,

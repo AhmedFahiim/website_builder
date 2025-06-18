@@ -1,6 +1,6 @@
 import React from "react";
-import { GlobeIcon } from "@radix-ui/react-icons";
 import Link from "@/components/common/link";
+import { GlobeIcon } from "lucide-react";
 
 interface Props {
   nav: TLinks;
