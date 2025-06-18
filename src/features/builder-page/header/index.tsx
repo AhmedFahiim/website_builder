@@ -50,7 +50,7 @@ const BuilderHeader = React.memo(function BuilderHeader({
     );
 
     toast.success("Your design saved successfully");
-  }, [projects]);
+  }, [projects, layout]);
 
   // auto save design
   useEffect(() => {

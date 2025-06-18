@@ -26,7 +26,7 @@ export default function BuildProject() {
     );
 
     setLayout(activeProject?.sections || []);
-  }, [params, projects]);
+  }, [params]);
 
   // get saved projects
   useEffect(() => {
