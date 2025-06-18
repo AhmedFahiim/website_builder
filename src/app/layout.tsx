@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={alexandria.variable}>
         {children}
 
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

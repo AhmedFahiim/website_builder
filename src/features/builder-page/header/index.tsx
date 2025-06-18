@@ -1,6 +1,14 @@
+"use client";
+
 import { Button } from "@/components/common/button";
 import Link from "@/components/common/link";
-import React from "react";
+import { useExportDesign } from "@/hooks/use-export-design";
+import { useImportDesign } from "@/hooks/use-import-design";
+import { useDesignLayout } from "@/hooks/use-layout";
+import { useUserProjects } from "@/hooks/use-user-projects";
+import { useParams } from "next/navigation";
+import React, { useRef } from "react";
+import { toast } from "sonner";
 
 interface Props {
   isOpen: boolean;
@@ -11,6 +19,33 @@ const BuilderHeader = React.memo(function BuilderHeader({
   isOpen,
   setOpenSideSheet,
 }: Props) {
+  const params = useParams();
+
+  const { layout } = useDesignLayout();
+
+  const { projects, setProjects } = useUserProjects();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onImportDesign = useImportDesign();
+
+  const onExportDesign = useExportDesign();
+
+  const onSaveDesign = () => {
+    const updatedProjects = projects.map((project: TProject) =>
+      project.slug === params.id
+        ? {
+            ...project,
+            lastUpdate: new Date(),
+            sections: layout,
+          }
+        : project
+    );
+
+    setProjects(updatedProjects);
+    toast.success("Your design saved successfully");
+  };
+
   return (
     <header
       className="flex justify-between items-center p-4"
@@ -48,8 +83,19 @@ const BuilderHeader = React.memo(function BuilderHeader({
       </div>
 
       <div className="flex items-center gap-4">
-        <Button variant="outline">Import Design</Button>
-        <Button variant="default">Save Design</Button>
+        <Button variant="outline" onClick={() => inputRef.current?.click()}>
+          Import Design
+        </Button>
+
+        <Button variant="outline" onClick={onExportDesign}>
+          Export Design
+        </Button>
+
+        <Button variant="default" onClick={onSaveDesign}>
+          Save Design
+        </Button>
+
+        <input type="file" hidden onChange={onImportDesign} ref={inputRef} />
       </div>
     </header>
   );

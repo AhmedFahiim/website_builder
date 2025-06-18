@@ -31,7 +31,7 @@ export default function CreateNewProject() {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmitProjectData)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormInput name="title" label="Title" />
+              <FormInput name="title" label="Name" />
               <FormInput name="description" label="Description" />
             </div>
 

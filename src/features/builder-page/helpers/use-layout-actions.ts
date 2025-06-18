@@ -1,42 +1,18 @@
 import { useDesignLayout } from "@/hooks/use-layout";
-import { useUserProjects } from "@/hooks/use-user-projects";
-import { useParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
 export const useLayoutActions = () => {
-  const params = useParams();
-
   const { layout, setLayout } = useDesignLayout();
 
-  const { projects, setProjects } = useUserProjects();
-
   /* --------- on delete section -------- */
-  const onDeleteSection = useCallback(
-    (componentKey: string) => {
-      setLayout((prev) =>
-        prev.filter((section) => section.componentKey !== componentKey)
-      );
+  const onDeleteSection = useCallback((componentKey: string) => {
+    setLayout((prev) =>
+      prev.filter((section) => section.componentKey !== componentKey)
+    );
 
-      const updatedProjects = projects.map((project: TProject) =>
-        project.slug === params.id
-          ? {
-              ...project,
-              lastUpdate: new Date(),
-              sections:
-                project.sections?.filter(
-                  (section: TSection) => section.componentKey !== componentKey
-                ) || [],
-            }
-          : project
-      );
-
-      setProjects(updatedProjects);
-
-      toast.success("The section removed from the workflow");
-    },
-    [projects, params.id, setProjects]
-  );
+    toast.success("The section removed from the workflow");
+  }, []);
 
   const onDeleteSectionWithFly = (
     section: TSection,
@@ -96,29 +72,9 @@ export const useLayoutActions = () => {
         )
       );
 
-      // Update projects
-      const updatedProjects = projects.map((project: TProject) =>
-        project.slug === params.id
-          ? {
-              ...project,
-              lastUpdate: new Date(),
-              sections:
-                project.sections?.length === 0
-                  ? [updatedSection]
-                  : project.sections?.map((section: TSection) =>
-                      section.componentKey === editControl.componentKey
-                        ? updatedSection
-                        : section
-                    ) || [],
-            }
-          : project
-      );
-
-      setProjects(updatedProjects);
-
       setEditControl(null);
     },
-    [editControl, params.id, projects, setProjects]
+    [editControl]
   );
 
   return {
